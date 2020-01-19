@@ -1,0 +1,2 @@
+# burakkumeijipazuru
+blkmage puzzle game
