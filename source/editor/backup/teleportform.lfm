@@ -1,0 +1,8 @@
+object frmTeleport: TfrmTeleport
+  Left = 592
+  Height = 240
+  Top = 389
+  Width = 320
+  Caption = 'TeleportForm'
+  LCLVersion = '2.0.6.0'
+end

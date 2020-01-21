@@ -1,0 +1,52 @@
+object frmAbout: TfrmAbout
+  Left = 465
+  Height = 344
+  Top = 314
+  Width = 644
+  Caption = 'about..'
+  ClientHeight = 344
+  ClientWidth = 644
+  FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  Position = poDesktopCenter
+  ShowInTaskBar = stNever
+  LCLVersion = '2.0.6.0'
+  object Image_Blkmage: TImage
+    Left = 550
+    Height = 90
+    Top = 240
+    Width = 90
+    OnClick = Image_BlkmageClick
+  end
+  object Image_japname: TImage
+    Left = 8
+    Height = 114
+    Top = 0
+    Width = 632
+    Stretch = True
+  end
+  object Image_engname: TImage
+    Left = 8
+    Height = 114
+    Top = 120
+    Width = 632
+    Stretch = True
+  end
+  object Button_Okay: TButton
+    Left = 240
+    Height = 58
+    Top = 264
+    Width = 171
+    Caption = '<Okay>'
+    OnClick = Button_OkayClick
+    TabOrder = 0
+  end
+  object Label_Version: TLabel
+    Left = 8
+    Height = 17
+    Top = 313
+    Width = 89
+    Caption = 'version (0.0.0)'
+    ParentColor = False
+  end
+end

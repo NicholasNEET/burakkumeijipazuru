@@ -1,0 +1,157 @@
+object frmMainWindow: TfrmMainWindow
+  Left = 304
+  Height = 600
+  Top = 78
+  Width = 786
+  Caption = 'MainWindow'
+  ClientHeight = 573
+  ClientWidth = 786
+  Menu = MainMenu
+  OnCreate = FormCreate
+  LCLVersion = '2.0.6.0'
+  WindowState = wsMaximized
+  object MainPairSplitter: TPairSplitter
+    Left = 0
+    Height = 515
+    Top = 38
+    Width = 786
+    Align = alClient
+    Position = 256
+    object PairSplitterSide1: TPairSplitterSide
+      Cursor = crArrow
+      Left = 0
+      Height = 515
+      Top = 0
+      Width = 256
+      ClientWidth = 256
+      ClientHeight = 515
+      object DodadPageControl: TPageControl
+        Left = 0
+        Height = 515
+        Top = 0
+        Width = 256
+        ActivePage = TabSheet_Objects
+        Align = alClient
+        TabIndex = 1
+        TabOrder = 0
+        object TabSheet_Tiles: TTabSheet
+          Caption = 'Tile'
+          ClientHeight = 482
+          ClientWidth = 246
+          object Listview_Tiles: TListView
+            Left = 0
+            Height = 482
+            Top = 0
+            Width = 246
+            Align = alClient
+            Columns = <>
+            Items.LazData = {
+              8400000005000000FFFFFFFFFFFFFFFFFFFFFFFF0000000005000000666C6F6F
+              72FFFFFFFFFFFFFFFFFFFFFFFF000000000400000077616C6CFFFFFFFFFFFFFF
+              FFFFFFFFFF000000000500000077616C6C32FFFFFFFFFFFFFFFFFFFFFFFF0000
+              000005000000626C61636BFFFFFFFFFFFFFFFFFFFFFFFF000000000500000067
+              7265656E
+            }
+            ReadOnly = True
+            TabOrder = 0
+            OnClick = Listview_TilesClick
+          end
+        end
+        object TabSheet_Objects: TTabSheet
+          Caption = 'Object'
+          ClientHeight = 482
+          ClientWidth = 246
+          object ListView_Objects: TListView
+            Left = 0
+            Height = 482
+            Top = 0
+            Width = 246
+            Align = alClient
+            Columns = <>
+            Items.LazData = {
+              7700000004000000FFFFFFFFFFFFFFFFFFFFFFFF000000000C000000706C6179
+              65725F7374617274FFFFFFFFFFFFFFFFFFFFFFFF000000000800000068657861
+              6772616DFFFFFFFFFFFFFFFFFFFFFFFF00000000030000006F7262FFFFFFFFFF
+              FFFFFFFFFFFFFF000000000800000074656C65706F7274
+            }
+            ReadOnly = True
+            TabOrder = 0
+            OnChange = ListView_ObjectsChange
+            OnClick = ListView_ObjectsClick
+          end
+        end
+      end
+    end
+    object PairSplitterSide2: TPairSplitterSide
+      Cursor = crArrow
+      Left = 261
+      Height = 515
+      Top = 0
+      Width = 525
+      ClientWidth = 525
+      ClientHeight = 515
+      object PaintBox_Level: TPaintBox
+        Left = 0
+        Height = 515
+        Top = 0
+        Width = 525
+        Align = alClient
+        OnClick = PaintBox_LevelClick
+        OnMouseDown = PaintBox_LevelMouseDown
+        OnMouseMove = PaintBox_LevelMouseMove
+        OnMouseUp = PaintBox_LevelMouseUp
+        OnPaint = PaintBox_LevelPaint
+      end
+    end
+  end
+  object MainToolbar: TToolBar
+    Left = 0
+    Height = 38
+    Top = 0
+    Width = 786
+    ButtonHeight = 38
+    ButtonWidth = 38
+    Caption = 'MainToolbar'
+    TabOrder = 1
+    Visible = False
+  end
+  object MainStatusBar: TStatusBar
+    Left = 0
+    Height = 20
+    Top = 553
+    Width = 786
+    Panels = <>
+  end
+  object MainMenu: TMainMenu
+    left = 344
+    top = 56
+    object MenuItem_File: TMenuItem
+      Caption = 'File'
+      object MenuItem_FileNew: TMenuItem
+        Caption = 'New'
+      end
+      object MenuItem_FileOpen: TMenuItem
+        Caption = 'Open'
+      end
+      object MenuItem_FileSave: TMenuItem
+        Caption = 'Save'
+      end
+    end
+    object MenuItem_About: TMenuItem
+      Caption = 'About'
+      OnClick = MenuItem_AboutClick
+    end
+  end
+  object dlg_Open: TOpenDialog
+    left = 202
+    top = 56
+  end
+  object dlg_Save: TSaveDialog
+    left = 248
+    top = 56
+  end
+  object imgList_main: TImageList
+    left = 296
+    top = 56
+  end
+end

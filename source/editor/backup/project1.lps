@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="11"/>
+    <BuildModes Active="Default"/>
+    <Units Count="7">
+      <Unit0>
+        <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="37"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="mainwindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmMainWindow"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <TopLine Value="6"/>
+        <CursorPos X="3" Y="18"/>
+        <UsageCount Value="37"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="aboutform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAbout"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="20"/>
+        <CursorPos X="19" Y="41"/>
+        <UsageCount Value="37"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="levelinfoform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmLevelInfo"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="16"/>
+        <CursorPos Y="9"/>
+        <UsageCount Value="37"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="teleportform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTeleport"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="19" Y="10"/>
+        <UsageCount Value="37"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="burakku.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="14"/>
+        <CursorPos X="11" Y="24"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="newlevelform.pas"/>
+        <ComponentName Value="Form3"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="18" Y="14"/>
+        <UsageCount Value="22"/>
+      </Unit6>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="125" Column="11" TopLine="107"/>
+      </Position1>
+      <Position2>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="128" Column="18" TopLine="123"/>
+      </Position2>
+      <Position3>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="271" Column="12" TopLine="256"/>
+      </Position3>
+      <Position4>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="272" Column="11" TopLine="256"/>
+      </Position4>
+      <Position5>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="286" Column="21" TopLine="272"/>
+      </Position5>
+      <Position6>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="174" Column="24" TopLine="163"/>
+      </Position6>
+      <Position7>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="349" Column="55" TopLine="336"/>
+      </Position7>
+      <Position8>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="339" Column="14" TopLine="334"/>
+      </Position8>
+      <Position9>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="176" Column="85" TopLine="165"/>
+      </Position9>
+      <Position10>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="360" Column="8" TopLine="161"/>
+      </Position10>
+      <Position11>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="271" Column="7" TopLine="259"/>
+      </Position11>
+      <Position12>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="262" Column="15" TopLine="253"/>
+      </Position12>
+      <Position13>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="334" Column="23" TopLine="315"/>
+      </Position13>
+      <Position14>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="313" Column="31" TopLine="134"/>
+      </Position14>
+      <Position15>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="55" Column="13" TopLine="46"/>
+      </Position15>
+      <Position16>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="203" Column="5" TopLine="192"/>
+      </Position16>
+      <Position17>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="223" Column="29" TopLine="213"/>
+      </Position17>
+      <Position18>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="290" Column="19" TopLine="278"/>
+      </Position18>
+      <Position19>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="68" Column="45" TopLine="53"/>
+      </Position19>
+      <Position20>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="397" Column="32" TopLine="378"/>
+      </Position20>
+      <Position21>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="408" Column="26" TopLine="417"/>
+      </Position21>
+      <Position22>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="64" Column="13" TopLine="50"/>
+      </Position22>
+      <Position23>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="138" Column="34" TopLine="129"/>
+      </Position23>
+      <Position24>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="283" Column="22" TopLine="275"/>
+      </Position24>
+      <Position25>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="407" Column="4" TopLine="391"/>
+      </Position25>
+      <Position26>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="398" Column="13" TopLine="391"/>
+      </Position26>
+      <Position27>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="397" Column="13" TopLine="390"/>
+      </Position27>
+      <Position28>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="396" Column="13" TopLine="389"/>
+      </Position28>
+      <Position29>
+        <Filename Value="mainwindow.pas"/>
+        <Caret Line="395" Column="13" TopLine="388"/>
+      </Position29>
+      <Position30>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="24" Column="2" TopLine="287"/>
+      </Position30>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
