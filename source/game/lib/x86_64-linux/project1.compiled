@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Compiler Value="/usr/bin/fpc" Date="1557783618"/>
-  <Params Value=" -MObjFPC -Scghi -Cg -O1 -g -gl -l -vewnhibq -Fi/home/nick/git/burakkumeijipazuru/source/game/lib/x86_64-linux -Fu/home/nick/git/burakkumeijipazuru/source/game/ -FU/home/nick/git/burakkumeijipazuru/source/game/lib/x86_64-linux/ -FE/home/nick/git/burakkumeijipazuru/source/game/ -o/home/nick/git/burakkumeijipazuru/source/game/project1 project1.lpr"/>
+  <Params Value=" -MObjFPC -Scghi -Cg -O1 -g -gl -l -vewnhibq -Fi/home/nick/git/burakkumeijipazuru/source/game/lib/x86_64-linux -Fu/usr/lib/lazarus/lcl/units/x86_64-linux/gtk2 -Fu/usr/lib/lazarus/lcl/units/x86_64-linux -Fu/usr/lib/lazarus/components/lazutils/lib/x86_64-linux -Fu/usr/lib/lazarus/packager/units/x86_64-linux -Fu/home/nick/git/burakkumeijipazuru/source/game/ -FU/home/nick/git/burakkumeijipazuru/source/game/lib/x86_64-linux/ -FE/home/nick/git/burakkumeijipazuru/source/game/ -o/home/nick/git/burakkumeijipazuru/source/game/project1 -dLCL -dLCLgtk2 project1.lpr"/>
 </CONFIG>
