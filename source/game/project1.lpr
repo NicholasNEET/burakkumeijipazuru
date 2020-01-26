@@ -11,7 +11,7 @@ begin
   new(fpsman);
 
   SDL_Init(SDL_INIT_EVERYTHING);
-  screen:= SDL_SetVideoMode(800,600,24, SDL_HWACCEL or SDL_DOUBLEBUF);
+  screen:= SDL_SetVideoMode(800, 600,24, SDL_HWACCEL or SDL_DOUBLEBUF);
   SDL_EnableKeyRepeat(1, 150);
   SDL_initFramerate(fpsman);
   SDL_setFramerate(fpsman, 30);

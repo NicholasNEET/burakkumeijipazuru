@@ -1,3 +1,4 @@
+{%RunFlags MESSAGES+}
 unit burakku;
 
 {$mode objfpc}{$H+}
@@ -15,8 +16,9 @@ type
 
   TGameObject_Type = ( START, HEX, ORB, PLAYER, TILE );
   TTileType = ( FLOOR, WALL );
+  TPlayerFacing = (UP, DOWN, LEFT, RIGHT);
 
-  TImage = class
+  TSDLImage = class
     public
       constructor Create;
       destructor Destroy;
@@ -45,6 +47,8 @@ type
       procedure SetPrevPos;
       procedure RevtPrevPos;
 
+      procedure UpdateHitBox;
+
     private
       pos: TPoint;
       surface: PSDL_Surface;
@@ -60,6 +64,7 @@ type
       { player }
       step_taken: Integer;
       prev_pos: TPoint;
+      facing: TPlayerFacing;
 
       { tile }
       tiletype: TTileType;
@@ -84,7 +89,6 @@ type
       function PlayerExists: Boolean;
 
       function IsOrbAtPos(x,y: Integer): Boolean;
-      function GetOrbAtPos(x,y :Integer): TGameObject;
 
       procedure HandleInput;
       procedure Update;
@@ -115,9 +119,9 @@ implementation
 
 procedure AddImage(filen, list: string);
 var
-  image: TImage;
+  image: TSDLImage;
 begin
-  image:= TImage.Create;
+  image:= TSDLImage.Create;
   image.LoadBMP(filen);
 
   if (list = 'p') then
@@ -136,6 +140,8 @@ end;
 
 procedure LoadImages;
 begin
+  { load all bitmap images into TSDLImage (TobjectList compat) }
+
   images_tile:= TObjectList.Create;
   AddImage('assets/image/level/blacktile.bmp', 't');
   AddImage('assets/image/level/greentile.bmp', 't');
@@ -158,18 +164,18 @@ begin
   AddImage('assets/image/player/blackmage_rightwalk.bmp', 'p');
 end;
 
-{ IMAGE }
-constructor TImage.Create;
+{ SDL_IMAGE }
+constructor TSDLImage.Create;
 begin
   new(self.surface);
 end;
 
-destructor TImage.Destroy;
+destructor TSDLImage.Destroy;
 begin
   SDL_FreeSurface(self.surface);
 end;
 
-procedure TImage.LoadBMP(filen: string);
+procedure TSDLImage.LoadBMP(filen: string);
 begin
   self.surface:= SDL_LoadBMP(Pchar(filen));
   SDL_SetColorKey(
@@ -178,7 +184,7 @@ begin
   );
 end;
 
-function TImage.GetSurface: PSDL_Surface;
+function TSDLImage.GetSurface: PSDL_Surface;
 begin
   Result:= self.surface;
 end;
@@ -198,26 +204,26 @@ end;
 
 procedure TGameObject.MoveUp;
 begin
-  self.pos.SetLocation(self.pos.x, self.pos.y - 32);
-  self.rect.SetLocation(self.pos.x, self.pos.y);
+  self.pos.SetLocation(self.pos.x, self.pos.y - 1);
+  self.SetPrevPos;
 end;
 
 procedure TGameObject.MoveDown;
 begin
-  self.pos.SetLocation(self.pos.x, self.pos.y + 32);
-  self.rect.SetLocation(self.pos.x, self.pos.y);
+  self.pos.SetLocation(self.pos.x, self.pos.y + 1);
+  self.SetPrevPos;
 end;
 
 procedure TGameObject.MoveRight;
 begin
-  self.pos.SetLocation(self.pos.x + 32, self.pos.y);
-  self.rect.SetLocation(self.pos.x, self.pos.y);
+  self.pos.SetLocation(self.pos.x + 1, self.pos.y);
+  self.SetPrevPos;
 end;
 
 procedure TGameObject.MoveLeft;
 begin
-  self.pos.SetLocation(self.pos.x - 32, self.pos.y);
-  self.rect.SetLocation(self.pos.x, self.pos.y);
+  self.pos.SetLocation(self.pos.x - 1, self.pos.y);
+  self.SetPrevPos;
 end;
 
 function TGameObject.IsOnHex: Boolean;
@@ -245,6 +251,11 @@ begin
   self.pos.SetLocation(self.prev_pos.x, self.prev_pos.y);
 end;
 
+procedure TGameObject.UpdateHitBox;
+begin
+  self.rect.SetLocation(self.pos.x * 32, self.pos.y * 32);
+end;
+
 { GAMELVEL }
 
 constructor TGameLevel.Create;
@@ -263,8 +274,8 @@ begin
     begin
       tile:= TGameObject.Create;
       tile._type:= TGameObject_Type.TILE;
-      tile.surface:= (images_tile.Items[2] as TImage).surface;
-      tile.pos.SetLocation(i*32, j*32);
+      tile.surface:= (images_tile.Items[2] as TSDLImage).surface;
+      tile.pos.SetLocation(i, j);
       self.tiles.Add(tile);
     end;
   end;
@@ -274,59 +285,59 @@ begin
   { create player }
   player:= TGameObject.Create;
   player.pos.SetLocation(0,0);
-  player.rect.SetLocation(player.pos.x, player.pos.y);
-  player.surface:= (images_player.Items[2] as TImage).surface;
+  player.UpdateHitBox;
+  player.surface:= (images_player.Items[2] as TSDLImage).surface;
   player._type:= TGameObject_Type.PLAYER;
   self.objects.Add(player);
 
   { create orbs }
   gameobj:= TGameObject.Create;
-  gameObj.pos.SetLocation(5*32,8*32);
-  gameObj.rect.SetLocation(gameObj.pos.x, gameObj.pos.y);
-  gameobj.surface:= (images_object.Items[1] as TImage).surface;
+  gameObj.pos.SetLocation(5,8);
+  gameObj.UpdateHitBox;
+  gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
-  gameObj.pos.SetLocation(8*32,4*32);
-  gameObj.rect.SetLocation(gameObj.pos.x, gameObj.pos.y);
-  gameobj.surface:= (images_object.Items[1] as TImage).surface;
+  gameObj.pos.SetLocation(8,4);
+  gameObj.UpdateHitBox;
+  gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
-  gameObj.pos.SetLocation(12*32,9*32);
-  gameObj.rect.SetLocation(gameObj.pos.x, gameObj.pos.y);
-  gameobj.surface:= (images_object.Items[1] as TImage).surface;
+  gameObj.pos.SetLocation(12,9);
+  gameObj.UpdateHitBox;
+  gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
-  gameObj.pos.SetLocation(15*32,10*32);
-  gameObj.rect.SetLocation(gameObj.pos.x, gameObj.pos.y);
-  gameobj.surface:= (images_object.Items[1] as TImage).surface;
+  gameObj.pos.SetLocation(15,10);
+  gameObj.UpdateHitBox;
+  gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
 
   { create hexpad }
   gameobj:= TGameObject.Create;
-  gameObj.pos.SetLocation(10*32,5*32);
-  gameObj.rect.SetLocation(gameObj.pos.x, gameObj.pos.y);
-  gameobj.surface:= (images_object.Items[0] as TImage).surface;
+  gameObj.pos.SetLocation(10,5);
+  gameObj.UpdateHitBox;
+  gameobj.surface:= (images_object.Items[0] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.HEX;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
-  gameObj.pos.SetLocation(12*32,5*32);
-  gameObj.rect.SetLocation(gameObj.pos.x, gameObj.pos.y);
-  gameobj.surface:= (images_object.Items[0] as TImage).surface;
+  gameObj.pos.SetLocation(12,5);
+  gameObj.UpdateHitBox;
+  gameobj.surface:= (images_object.Items[0] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.HEX;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
-  gameObj.pos.SetLocation(11*32,4*32);
-  gameObj.rect.SetLocation(gameObj.pos.x, gameObj.pos.y);
-  gameobj.surface:= (images_object.Items[0] as TImage).surface;
+  gameObj.pos.SetLocation(11,4);
+  gameObj.UpdateHitBox;
+  gameobj.surface:= (images_object.Items[0] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.HEX;
   self.objects.Add(gameobj);
 
@@ -340,56 +351,96 @@ end;
 procedure TGameLevel.Update;
 var
   i,j: Integer;
-  objhex: TGameObject;
-  objorb: TGameObject;
+  hexobj: TGameObject;
+  orbobj: TGameObject;
   gameobj: TGameObject;
 begin
+
+  { update hit boxes }
+  for i:= 0 to self.objects.Count - 1 do
+  begin
+    gameobj:= (self.objects.Items[i] as TGameObject);
+    gameobj.UpdateHitBox;
+  end;
+
+  { move orbs }
+  for i:= 0 to self.objects.Count - 1 do
+  begin
+    gameobj:= (self.objects.Items[i] as TGameObject);
+    if (gameobj._type = TGameObject_Type.ORB) and gameobj.rect.IntersectsWith(GetPlayer.rect) then
+    begin
+      if (GetPlayer.facing = TPlayerFacing.UP) then
+      begin
+        if not (IsOrbAtPos(gameobj.pos.x, gameobj.pos.y - 1)) then
+        begin
+          gameobj.MoveUp;
+        end
+        else
+        begin
+          WriteLn('orb collision possible');
+        end;
+      end;
+
+      if (GetPlayer.facing = TPlayerFacing.DOWN) then
+      begin
+           gameobj.MoveDown;
+      end;
+      if (GetPlayer.facing = TPlayerFacing.LEFT) then
+      begin
+           gameobj.MoveLeft;
+      end;
+      if (GetPlayer.facing = TPlayerFacing.RIGHT) then
+      begin
+           gameobj.MoveRight;
+      end;
+    end;
+  end;
+
+  { stop orbs from taking up the same space. (orb collision) }
+  for i:= 0 to self.objects.Count - 1 do
+  begin
+    gameobj:= (self.objects.Items[i] as TGameObject);
+    if (gameobj._type = TGameObject_Type.ORB) then
+    begin
+      for j:= 0 to self.objects.Count - 1 do
+      begin
+        orbobj:= (self.objects.Items[j] as TGameObject);
+          if (gameobj.rect.IntersectsWith(orbobj.rect)) and
+          (orbobj._type = TGameObject_Type.ORB) and (i <> j) then
+          begin
+            gameobj.RevtPrevPos;
+          end;
+      end;
+    end;
+  end;
 
   { see if orbs are on hex pad. and set "isonhex" (true) }
   for i:= 0 to self.objects.Count - 1 do
   begin
-    objorb:= (self.objects.Items[i] as TGameObject);
-    if (objorb._type = TGameObject_Type.ORB) then
+    orbobj:= (self.objects.Items[i] as TGameObject);
+    if (orbobj._type = TGameObject_Type.ORB) then
     begin
        for j:= 0 to self.objects.Count -1 do
        begin
-         objhex:= (self.objects.Items[j] as TGameObject);
-         if (objhex._type =TGameObject_Type.HEX) then
+         hexobj:= (self.objects.Items[j] as TGameObject);
+         if (hexobj._type = TGameObject_Type.HEX) then
          begin
-           if (objorb.pos.x = objhex.pos.x) and (objorb.pos.y = objhex.pos.y) then
+           if (orbobj.pos.x = hexobj.pos.x) and (orbobj.pos.y = hexobj.pos.y) then
            begin
-             objorb.SetIsOnHex;
+             orbobj.SetIsOnHex;
            end;
          end;
        end;
     end;
   end;
 
+  { revtpos collision on everything.. }
   for i:= 0 to self.objects.Count - 1 do
   begin
     gameobj:= (self.objects.Items[i] as TGameObject);
     if (GetPlayer.GetHitBox.IntersectsWith(gameobj.GetHitBox)) and (gameobj._type <> TGameObject_Type.PLAYER) then
     begin
        GetPlayer.RevtPrevPos;
-    end;
-  end;
-
-  for i:= 0 to self.objects.Count - 1 do
-  begin
-    objorb:= (self.objects.Items[i] as TGameObject);
-    if (objorb._type = TGameObject_Type.ORB) then
-    begin
-       for j:= 0 to self.objects.Count -1 do
-       begin
-         gameobj:= (self.objects.Items[j] as TGameObject);
-         if (objhex._type =TGameObject_Type.ORB) then
-         begin
-           if (objorb.pos.x = objhex.pos.x) and (objorb.pos.y = objhex.pos.y) then
-           begin
-             objorb.RevtPrevPos;
-           end;
-         end;
-       end;
     end;
   end;
 
@@ -417,47 +468,42 @@ begin
   for i:= 0 to self.tiles.Count -1 do
   begin
     tile:= (self.tiles.Items[i] as TGameObject);
-    dstrect^.x:= tile.pos.x;
-    dstrect^.y:= tile.pos.y;
+    dstrect^.x:= tile.pos.x * 32;
+    dstrect^.y:= tile.pos.y * 32;
     SDL_BlitSurface(tile.surface, srcrect, dstsurface, dstrect);
   end;
 
+  { draw hex }
   for i:= 0 to self.objects.Count - 1 do
   begin
     gameobj:= (self.objects.Items[i] as TGameObject);
     if (gameobj._type = TGameObject_Type.HEX) then
     begin
-      dstrect^.x:= gameobj.pos.x;
-      dstrect^.y:= gameobj.pos.y;
+      dstrect^.x:= gameobj.pos.x * 32;
+      dstrect^.y:= gameobj.pos.y * 32;
       SDL_BlitSurface(gameobj.surface, srcrect, dstsurface, dstrect);
     end;
   end;
 
+  { draw orbs }
   for i:= 0 to self.objects.Count - 1 do
   begin
     gameobj:= (self.objects.Items[i] as TGameObject);
     if (gameobj._type = TGameObject_Type.ORB) then
     begin
-      dstrect^.x:= gameobj.pos.x;
-      dstrect^.y:= gameobj.pos.y;
+      dstrect^.x:= gameobj.pos.x * 32;
+      dstrect^.y:= gameobj.pos.y * 32;
       SDL_BlitSurface(gameobj.surface, srcrect, dstsurface, dstrect);
     end;
   end;
 
+  { draw player }
   if (self.PlayerExists) then
   begin
-    dstrect^.x:= self.GetPlayer.pos.x;
-    dstrect^.y:= self.GetPlayer.pos.y;
+    dstrect^.x:= self.GetPlayer.pos.x * 32;
+    dstrect^.y:= self.GetPlayer.pos.y * 32;
     SDL_BlitSurface(self.GetPlayer.surface, srcrect, dstsurface, dstrect);
   end;
-
-  {
-  { draw hit boxes }
-  for i:= 0 to self.objects.Count - 1 do
-   begin
-
-   end;
-   }
 
 end;
 
@@ -465,6 +511,7 @@ procedure TGameLevel.HandleInput;
 var
   i, j: Integer;
   gameobj: TGameObject;
+  orbobj: TGameObject;
 begin
      if (event^.type_ = SDL_KEYDOWN) then
      begin
@@ -472,69 +519,32 @@ begin
           begin
             GetPlayer.SetPrevPos;
             GetPlayer.MoveUp;
-
-            for i:= 0 to self.objects.Count - 1 do
-            begin
-              gameobj:= (self.objects.Items[i] as TGameObject);
-              if (GetPlayer.GetHitBox.IntersectsWith(gameobj.GetHitBox)) and
-              (gameobj._type = TGameObject_Type.ORB) and not (gameobj.IsOnHex) then
-              begin
-                GameObj.SetPrevPos;
-                Gameobj.MoveUp;
-                break;
-              end;
-            end;
+            GetPlayer.facing:= TPlayerFacing.UP;
+            GetPlayer.surface:= (images_player.Items[0] as TSDLImage).surface;
           end;
 
           if (event^.key.keysym.sym = SDLK_DOWN) then
           begin
             GetPlayer.SetPrevPos;
             GetPlayer.MoveDown;
-
-            for i:= 0 to self.objects.Count - 1 do
-            begin
-              gameobj:= (self.objects.Items[i] as TGameObject);
-              if (GetPlayer.GetHitBox.IntersectsWith(gameobj.GetHitBox)) and
-              (gameobj._type = TGameObject_Type.ORB) and not (gameobj.IsOnHex)  then
-              begin
-                 gameobj.SetPrevPos;
-                 gameobj.MoveDown;
-              end;
-            end;
+            GetPlayer.facing:= TPlayerFacing.DOWN;
+            GetPlayer.surface:= (images_player.Items[2] as TSDLImage).surface;
           end;
 
           if (event^.key.keysym.sym = SDLK_LEFT) then
           begin
             GetPlayer.SetPrevPos;
             GetPlayer.MoveLeft;
-
-            for i:= 0 to self.objects.Count - 1 do
-            begin
-              gameobj:= (self.objects.Items[i] as TGameObject);
-              if (GetPlayer.GetHitBox.IntersectsWith(gameobj.GetHitBox)) and
-              (gameobj._type = TGameObject_Type.ORB) and not (gameobj.IsOnHex)  then
-              begin
-                 gameobj.SetPrevPos;
-                 gameobj.MoveLeft;
-              end;
-            end;
+            GetPlayer.facing:= TPlayerFacing.LEFT;
+            GetPlayer.surface:= (images_player.Items[5] as TSDLImage).surface;
           end;
 
           if (event^.key.keysym.sym = SDLK_RIGHT) then
           begin
             GetPlayer.SetPrevPos;
             GetPlayer.MoveRight;
-
-            for i:= 0 to self.objects.Count - 1 do
-            begin
-              gameobj:= (self.objects.Items[i] as TGameObject);
-              if (GetPlayer.GetHitBox.IntersectsWith(gameobj.GetHitBox)) and
-              (gameobj._type = TGameObject_Type.ORB) and not (gameobj.IsOnHex)  then
-              begin
-                 gameobj.SetPrevPos;
-                 gameobj.MoveRight;
-              end;
-            end;
+            GetPlayer.facing:= TPlayerFacing.RIGHT;
+            GetPlayer.surface:= (images_player.Items[6] as TSDLImage).surface;
           end;
      end;
 end;
@@ -548,48 +558,17 @@ function TGameLevel.IsOrbAtPos(x,y: Integer): Boolean;
 var
   i: Integer;
   gameobj: TGameObject;
-  rect: TRect;
 begin
-  rect.Width:= 32;
-  rect.Height:= 32;
-  rect.SetLocation(x,y);
-
   for i:= 0 to self.objects.Count- 1 do
   begin
        gameobj:= (self.objects.Items[i] as TGameObject);
-       if (gameobj._type = TGameObject_Type.ORB) then
-       begin
-         if gameobj.rect.IntersectsWith(rect) then
+         if (gameobj._type = TGameObject_Type.ORB) and
+         (gameobj.pos.x = x) and (gameobj.pos.y = y) then
          begin
-           Result:= true;
+             Result:= true;
          end;
-       end;
   end;
   Result:= false;
-end;
-
-function TGameLevel.GetOrbAtPos(x,y: Integer): TGameObject;
-var
-  i: Integer;
-  gameobj: TGameObject;
-  rect: TRect;
-begin
-  rect.Width:= 32;
-  rect.Height:= 32;
-  rect.SetLocation(x,y);
-
-  for i:= 0 to self.objects.Count- 1 do
-  begin
-       gameobj:= (self.objects.Items[i] as TGameObject);
-       if (gameobj._type = TGameObject_Type.ORB) then
-       begin
-         if gameobj.rect.IntersectsWith(rect) then
-         begin
-           Result:= gameobj;
-         end;
-       end;
-  end;
-  Result:= nil;
 end;
 
 function TGameLevel.GetPlayer: TGameObject;
