@@ -1,5 +1,24 @@
 
-Editor:
+------------------------------------------------------------------------------------
+[Editor]
+------------------------------------------------------------------------------------
+Placing of start pos tile.
+Text fileformat
+save/load
 
-GameBin:
+
+------------------------------------------------------------------------------------
+[Game]
+------------------------------------------------------------------------------------
+gameplay / mechanics
+	- pushing of orbs
+	- orbs on hex
+	- solid orbs
+	- step counting and stepcount logging (high score)
+game screens
+audio play
+menu .. textmenu (display various text things)
+loading of levels
+high scores per level.
+
 
