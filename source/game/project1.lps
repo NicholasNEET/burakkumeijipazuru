@@ -3,13 +3,12 @@
   <ProjectSession>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="4">
+    <Units Count="6">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="32"/>
-        <CursorPos X="34" Y="14"/>
-        <UsageCount Value="36"/>
+        <CursorPos X="52" Y="11"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -17,9 +16,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="424"/>
-        <CursorPos X="31" Y="398"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="343"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -36,128 +34,138 @@
         <TopLine Value="37"/>
         <UsageCount Value="13"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="/usr/lib/fpc/src/rtl/inc/typshrdh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="138"/>
+        <CursorPos X="18" Y="145"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="/usr/lib/fpc/src/rtl/inc/typshrd.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="378"/>
+        <CursorPos X="11" Y="386"/>
+        <UsageCount Value="10"/>
+      </Unit5>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="28" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="363" Column="14" TopLine="358"/>
       </Position1>
       <Position2>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="26" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="9" Column="45"/>
       </Position2>
       <Position3>
         <Filename Value="project1.lpr"/>
-        <Caret Line="28" TopLine="15"/>
+        <Caret Line="48" TopLine="32"/>
       </Position3>
       <Position4>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="26" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="504" Column="43" TopLine="334"/>
       </Position4>
       <Position5>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="28" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="360" Column="21" TopLine="350"/>
       </Position5>
       <Position6>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="26" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="380" Column="32" TopLine="371"/>
       </Position6>
       <Position7>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="28" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="378" Column="13" TopLine="370"/>
       </Position7>
       <Position8>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="26" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="380" Column="7" TopLine="370"/>
       </Position8>
       <Position9>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="28" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="92" TopLine="84"/>
       </Position9>
       <Position10>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="26" TopLine="15"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="566" Column="32" TopLine="559"/>
       </Position10>
       <Position11>
         <Filename Value="burakku.pas"/>
-        <Caret Line="165" TopLine="155"/>
+        <Caret Line="376" Column="57" TopLine="369"/>
       </Position11>
       <Position12>
         <Filename Value="burakku.pas"/>
-        <Caret Line="365" Column="34" TopLine="357"/>
+        <Caret Line="91" Column="16" TopLine="90"/>
       </Position12>
       <Position13>
         <Filename Value="burakku.pas"/>
-        <Caret Line="363" Column="14" TopLine="358"/>
+        <Caret Line="577" Column="19" TopLine="565"/>
       </Position13>
       <Position14>
         <Filename Value="burakku.pas"/>
-        <Caret Line="9" Column="45"/>
+        <Caret Line="375" Column="14" TopLine="368"/>
       </Position14>
       <Position15>
-        <Filename Value="project1.lpr"/>
-        <Caret Line="48" TopLine="32"/>
+        <Filename Value="burakku.pas"/>
+        <Caret Line="37" Column="17" TopLine="31"/>
       </Position15>
       <Position16>
         <Filename Value="burakku.pas"/>
-        <Caret Line="504" Column="43" TopLine="334"/>
+        <Caret Line="208" Column="8" TopLine="200"/>
       </Position16>
       <Position17>
         <Filename Value="burakku.pas"/>
-        <Caret Line="360" Column="21" TopLine="350"/>
+        <Caret Line="226" Column="19" TopLine="217"/>
       </Position17>
       <Position18>
         <Filename Value="burakku.pas"/>
-        <Caret Line="380" Column="32" TopLine="371"/>
+        <Caret Line="47" Column="17" TopLine="40"/>
       </Position18>
       <Position19>
         <Filename Value="burakku.pas"/>
-        <Caret Line="378" Column="13" TopLine="370"/>
+        <Caret Line="402" Column="50" TopLine="393"/>
       </Position19>
       <Position20>
         <Filename Value="burakku.pas"/>
-        <Caret Line="380" Column="7" TopLine="370"/>
+        <Caret Line="400" Column="3" TopLine="393"/>
       </Position20>
       <Position21>
         <Filename Value="burakku.pas"/>
-        <Caret Line="92" TopLine="84"/>
+        <Caret Line="401" Column="5" TopLine="397"/>
       </Position21>
       <Position22>
         <Filename Value="burakku.pas"/>
-        <Caret Line="566" Column="32" TopLine="559"/>
+        <Caret Line="390" Column="7" TopLine="389"/>
       </Position22>
       <Position23>
         <Filename Value="burakku.pas"/>
-        <Caret Line="376" Column="57" TopLine="369"/>
+        <Caret Line="356" Column="10" TopLine="349"/>
       </Position23>
       <Position24>
         <Filename Value="burakku.pas"/>
-        <Caret Line="91" Column="16" TopLine="90"/>
+        <Caret Line="368" Column="14" TopLine="360"/>
       </Position24>
       <Position25>
         <Filename Value="burakku.pas"/>
-        <Caret Line="577" Column="19" TopLine="565"/>
+        <Caret Line="442" Column="59" TopLine="431"/>
       </Position25>
       <Position26>
         <Filename Value="burakku.pas"/>
-        <Caret Line="375" Column="14" TopLine="368"/>
+        <Caret Line="439" Column="15" TopLine="431"/>
       </Position26>
       <Position27>
         <Filename Value="burakku.pas"/>
-        <Caret Line="37" Column="17" TopLine="31"/>
+        <Caret Line="442" Column="105" TopLine="434"/>
       </Position27>
       <Position28>
         <Filename Value="burakku.pas"/>
-        <Caret Line="208" Column="8" TopLine="200"/>
+        <Caret Line="449" Column="7" TopLine="437"/>
       </Position28>
       <Position29>
         <Filename Value="burakku.pas"/>
-        <Caret Line="226" Column="19" TopLine="217"/>
+        <Caret Line="248" Column="37" TopLine="242"/>
       </Position29>
-      <Position30>
-        <Filename Value="burakku.pas"/>
-        <Caret Line="47" Column="17" TopLine="40"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

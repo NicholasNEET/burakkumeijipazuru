@@ -1,4 +1,3 @@
-{%RunFlags MESSAGES+}
 unit burakku;
 
 {$mode objfpc}{$H+}
@@ -285,7 +284,6 @@ begin
   { create player }
   player:= TGameObject.Create;
   player.pos.SetLocation(0,0);
-  player.UpdateHitBox;
   player.surface:= (images_player.Items[2] as TSDLImage).surface;
   player._type:= TGameObject_Type.PLAYER;
   self.objects.Add(player);
@@ -293,28 +291,24 @@ begin
   { create orbs }
   gameobj:= TGameObject.Create;
   gameObj.pos.SetLocation(5,8);
-  gameObj.UpdateHitBox;
   gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
   gameObj.pos.SetLocation(8,4);
-  gameObj.UpdateHitBox;
   gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
   gameObj.pos.SetLocation(12,9);
-  gameObj.UpdateHitBox;
   gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
   gameObj.pos.SetLocation(15,10);
-  gameObj.UpdateHitBox;
   gameobj.surface:= (images_object.Items[1] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.ORB;
   self.objects.Add(gameobj);
@@ -322,21 +316,18 @@ begin
   { create hexpad }
   gameobj:= TGameObject.Create;
   gameObj.pos.SetLocation(10,5);
-  gameObj.UpdateHitBox;
   gameobj.surface:= (images_object.Items[0] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.HEX;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
   gameObj.pos.SetLocation(12,5);
-  gameObj.UpdateHitBox;
   gameobj.surface:= (images_object.Items[0] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.HEX;
   self.objects.Add(gameobj);
 
   gameobj:= TGameObject.Create;
   gameObj.pos.SetLocation(11,4);
-  gameObj.UpdateHitBox;
   gameobj.surface:= (images_object.Items[0] as TSDLImage).surface;
   gameobj._type:= TGameObject_Type.HEX;
   self.objects.Add(gameobj);
@@ -356,29 +347,16 @@ var
   gameobj: TGameObject;
 begin
 
-  { update hit boxes }
-  for i:= 0 to self.objects.Count - 1 do
-  begin
-    gameobj:= (self.objects.Items[i] as TGameObject);
-    gameobj.UpdateHitBox;
-  end;
-
   { move orbs }
   for i:= 0 to self.objects.Count - 1 do
   begin
     gameobj:= (self.objects.Items[i] as TGameObject);
-    if (gameobj._type = TGameObject_Type.ORB) and gameobj.rect.IntersectsWith(GetPlayer.rect) then
+    if (gameobj._type = TGameObject_Type.ORB) and
+    gameobj.rect.IntersectsWith(GetPlayer.rect) and ( not gameobj.IsOnHex) then
     begin
       if (GetPlayer.facing = TPlayerFacing.UP) then
       begin
-        if not (IsOrbAtPos(gameobj.pos.x, gameobj.pos.y - 1)) then
-        begin
           gameobj.MoveUp;
-        end
-        else
-        begin
-          WriteLn('orb collision possible');
-        end;
       end;
 
       if (GetPlayer.facing = TPlayerFacing.DOWN) then
@@ -437,13 +415,36 @@ begin
   end;
 
   { revtpos collision on everything.. }
+  {
   for i:= 0 to self.objects.Count - 1 do
   begin
     gameobj:= (self.objects.Items[i] as TGameObject);
-    if (GetPlayer.GetHitBox.IntersectsWith(gameobj.GetHitBox)) and (gameobj._type <> TGameObject_Type.PLAYER) then
+    if (gameobj.GetHitBox.IntersectsWith(gameobj.GetHitBox)) and (gameobj._type <> TGameObject_Type.PLAYER) then
     begin
-       GetPlayer.RevtPrevPos;
+       gameobj.RevtPrevPos;
     end;
+  end;
+  }
+
+  for i:= 0 to self.objects.Count -  1 do
+  begin
+    gameobj:= (self.objects.Items[i] as TGameObject);
+    for j:= 0 to self.objects.Count - 1 do
+    begin
+      orbobj:= (self.objects.Items[j] as TGameObject);
+      if (gameobj.rect.IntersectsWith(orbobj.rect)) and (i <> j) and
+      (orbobj._type = TGameObject_Type.ORB) then
+      begin
+        gameobj.RevtPrevPos;
+      end;
+    end;
+  end;
+
+  { update hit boxes }
+  for i:= 0 to self.objects.Count - 1 do
+  begin
+    gameobj:= (self.objects.Items[i] as TGameObject);
+    gameobj.UpdateHitBox;
   end;
 
 end;
@@ -568,9 +569,9 @@ begin
          (gameobj.pos.x = x) and (gameobj.pos.y = y) then
          begin
              Result:= true;
+             break;
          end;
   end;
-  Result:= false;
 end;
 
 function TGameLevel.GetPlayer: TGameObject;
@@ -584,6 +585,7 @@ begin
     if (gameobj._type = TGameObject_Type.PLAYER) then
     begin
       Result:= gameobj;
+      break;
     end;
   end;
 end;
@@ -599,6 +601,7 @@ begin
     if (gameobj._type = TGameObject_Type.PLAYER) then
     begin
       Result:= true;
+      break;
     end;
   end;
 end;
