@@ -8,5 +8,3 @@ smaller step count taken the better.
 Simple Level editor Lazarus GUI.
 Game is an FPC SDL program.
 
-Programmed on Linux Manjaro! :)
-
